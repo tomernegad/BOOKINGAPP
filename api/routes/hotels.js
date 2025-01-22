@@ -51,4 +51,32 @@ router.delete("/:id", async (req, res) => {
   }
 });
 
+//GET
+router.get("/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const hotels = await Hotel.findById(id);
+    if (!hotels) {
+      res.status(404).send("No hotels found");
+    }
+    res.status(200).send(hotels);
+  } catch (err) {
+    res.status(500).send(err);
+    console.log(err);
+  }
+});
+
+// GET ALL
+router.get("/", async (req, res) => {
+  try {
+    const hotels = await Hotel.find();
+    if (!hotels) {
+      res.status(404).send("No hotels found");
+    }
+    res.status(200).send(hotels);
+  } catch (err) {
+    res.status(500).send(err);
+    console.log(err);
+  }
+});
 module.exports = router;
