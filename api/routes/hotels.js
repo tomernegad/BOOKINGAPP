@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const Hotel = require("../models/Hotel");
+const createError = require("../utils/error");
 
 //POST
 router.post("/", async (req, res) => {
@@ -67,7 +68,7 @@ router.get("/:id", async (req, res) => {
 });
 
 // GET ALL
-router.get("/", async (req, res) => {
+router.get("/", async (req, res, next) => {
   try {
     const hotels = await Hotel.find();
     if (!hotels) {
@@ -75,8 +76,7 @@ router.get("/", async (req, res) => {
     }
     res.status(200).send(hotels);
   } catch (err) {
-    res.status(500).send(err);
-    console.log(err);
+    next(err);
   }
 });
 module.exports = router;
