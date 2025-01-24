@@ -6,6 +6,7 @@ const authRoute = require("./api/routes/auth");
 const userRoute = require("./api/routes/users");
 const hotelsRoute = require("./api/routes/hotels");
 const roomsRoute = require("./api/routes/rooms");
+const cookieParser = require("cookie-parser");
 dotenv.config();
 
 const connect = async () => {
@@ -21,7 +22,7 @@ const connect = async () => {
 };
 
 //middlewars
-
+app.use(cookieParser());
 app.use(express.json());
 
 app.use("/api/auth", authRoute);
