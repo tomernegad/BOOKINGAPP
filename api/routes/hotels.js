@@ -3,6 +3,11 @@ const router = express.Router();
 const Hotel = require("../models/Hotel");
 const createError = require("../utils/error");
 const {
+  verifyAdmin,
+  verifyUser,
+  verifyToken,
+} = require("../utils/verifyToken");
+const {
   createHotel,
   updatedHotel,
   deletedHotel,
@@ -11,13 +16,13 @@ const {
 } = require("../controllers/hotelController");
 
 //POST
-router.post("/", createHotel);
+router.post("/", verifyAdmin, createHotel);
 
 //UPDATE
-router.put("/:id", updatedHotel);
+router.put("/:id", verifyAdmin, updatedHotel);
 
 //DELETE
-router.delete("/:id", deletedHotel);
+router.delete("/:id", verifyAdmin, deletedHotel);
 
 //GET
 router.get("/:id", getHotel);
