@@ -13,6 +13,7 @@ const {
   deletedHotel,
   getHotel,
   getHotels,
+  countByCity,
 } = require("../controllers/hotelController");
 
 //POST
@@ -25,9 +26,12 @@ router.put("/:id", verifyAdmin, updatedHotel);
 router.delete("/:id", verifyAdmin, deletedHotel);
 
 //GET
-router.get("/:id", getHotel);
+router.get("/find/:id", getHotel);
 
 // GET ALL
 router.get("/", getHotels);
+
+router.get("/countByCity", countByCity);
+router.get("/countByType", getHotels);
 
 module.exports = router;
