@@ -2,10 +2,10 @@ const express = require("express");
 const dotenv = require("dotenv");
 const mongoose = require("mongoose");
 const app = express();
-const authRoute = require("./api/routes/auth");
-const userRoute = require("./api/routes/users");
-const hotelsRoute = require("./api/routes/hotels");
-const roomsRoute = require("./api/routes/rooms");
+const authRoute = require("./routes/auth");
+const userRoute = require("./routes/users");
+const hotelsRoute = require("./routes/hotels");
+const roomsRoute = require("./routes/rooms");
 const cookieParser = require("cookie-parser");
 dotenv.config();
 
