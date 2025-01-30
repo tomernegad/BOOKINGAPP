@@ -1,3 +1,4 @@
+const hotel = require("../models/Hotel");
 const Hotel = require("../models/Hotel");
 
 const createHotel = async (req, res, next) => {
@@ -85,6 +86,25 @@ const countByCity = async (req, res, next) => {
     next(err);
   }
 };
+const countByType = async (req, res, next) => {
+  try {
+    const hotelCount = await Hotel.countDocuments({ type: "hotel" });
+    const apartmentCount = await Hotel.countDocuments({ type: "apartment" });
+    const resortcount = await Hotel.countDocuments({ type: "resort" });
+    const villaCount = await Hotel.countDocuments({ type: "villa" });
+    const cabinCount = await Hotel.countDocuments({ type: "cabin" });
+
+    res.status(200).json([
+      { type: "hotels", count: hotelCount },
+      { type: "apartments", count: apartmentCount },
+      { type: "resorst", count: resortcount },
+      { type: "villas", count: villaCount },
+      { type: "cabins", count: cabinCount },
+    ]);
+  } catch (err) {
+    next(err);
+  }
+};
 
 module.exports = {
   createHotel,
@@ -93,4 +113,5 @@ module.exports = {
   getHotel,
   getHotels,
   countByCity,
+  countByType,
 };

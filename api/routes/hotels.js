@@ -14,6 +14,7 @@ const {
   getHotel,
   getHotels,
   countByCity,
+  countByType,
 } = require("../controllers/hotelController");
 
 //POST
@@ -32,6 +33,6 @@ router.get("/find/:id", getHotel);
 router.get("/", getHotels);
 
 router.get("/countByCity", countByCity);
-router.get("/countByType", getHotels);
+router.get("/countByType", countByType);
 
 module.exports = router;
