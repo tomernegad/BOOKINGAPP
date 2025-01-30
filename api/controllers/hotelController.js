@@ -65,6 +65,7 @@ const getHotels = async (req, res, next) => {
   try {
     const { min, max, ...others } = req.query;
     const hotels = await Hotel.find({
+      ...others,
       cheapestPrice: { $gt: min | 1, $lt: max || 200 },
     }).limit(req.query.limit);
     if (!hotels) {
