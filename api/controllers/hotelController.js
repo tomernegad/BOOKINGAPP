@@ -63,7 +63,10 @@ const getHotel = async (req, res, next) => {
 
 const getHotels = async (req, res, next) => {
   try {
-    const hotels = await Hotel.find();
+    const { min, max, ...others } = req.query;
+    const hotels = await Hotel.find({
+      cheapestPrice: { $gt: min | 1, $lt: max || 200 },
+    }).limit(req.query.limit);
     if (!hotels) {
       res.status(404).send("No hotels found");
     }
