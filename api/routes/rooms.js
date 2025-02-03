@@ -13,6 +13,7 @@ const {
   deletedRoom,
   getRoom,
   getRooms,
+  updateRoomAvailability,
 } = require("../controllers/roomController");
 
 //POST
@@ -20,6 +21,8 @@ router.post("/:hotelid", verifyAdmin, createRoom);
 
 //UPDATE
 router.put("/:id", verifyAdmin, updateRoom);
+
+router.put("/availability/:id", updateRoomAvailability);
 
 //DELETE
 router.delete("/:id/:hotelid", verifyAdmin, deletedRoom);
