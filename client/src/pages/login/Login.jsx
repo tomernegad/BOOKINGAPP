@@ -1,9 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import "./login.css";
-import { useContext } from "react";
 import { AuthContext } from "../../context/AuthContext";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 const Login = () => {
   const [credentials, setCredentials] = useState({
@@ -38,17 +37,23 @@ const Login = () => {
           placeholder="username"
           id="username"
           onChange={handleChange}
-        ></input>
+        />
         <input
           type="password"
           placeholder="password"
           id="password"
           onChange={handleChange}
-        ></input>
+        />
         <button disabled={loading} onClick={handleClick} className="lButton">
           Login
         </button>
         {error && <span>{error.message}</span>}
+        <div className="registerOption">
+          <span>Don't have an account ? </span>
+          <Link to="/register">
+            <button className="lButton">Register</button>
+          </Link>
+        </div>
       </div>
     </div>
   );
