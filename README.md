@@ -18,7 +18,7 @@ Booking App is a web application that allows users to search for and book hotels
 - Express
 - MongoDB
 - Axios
-- 
+
 ## Screenshots
 
 ### Home Page
