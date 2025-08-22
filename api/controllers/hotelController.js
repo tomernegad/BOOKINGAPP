@@ -6,7 +6,7 @@ const createHotel = async (req, res, next) => {
   try {
     const savedHotel = await newHotel.save();
     if (!savedHotel) {
-      res.status(500).send("failed to post the hotel");
+      return res.status(500).send("failed to post the hotel");
     }
     res.status(200).send(savedHotel);
   } catch (err) {
@@ -24,7 +24,7 @@ const updatedHotel = async (req, res, next) => {
       { new: true }
     );
     if (!updatedHotel) {
-      res.status(404).send("The hotel to update was not found");
+      return res.status(404).send("The hotel to update was not found");
     }
     res.status(200).send(updatedHotel);
   } catch (err) {
@@ -38,7 +38,7 @@ const deletedHotel = async (req, res, next) => {
     const { id } = req.params;
     const deletedHotel = await Hotel.findByIdAndDelete(id);
     if (!deletedHotel) {
-      res.status(404).send("Did not found hotel do delete");
+      return res.status(404).send("Did not find hotel to delete");
     }
     res.status(200).send(deletedHotel);
   } catch (err) {
@@ -52,7 +52,7 @@ const getHotel = async (req, res, next) => {
     const { id } = req.params;
     const hotels = await Hotel.findById(id);
     if (!hotels) {
-      res.status(404).send("No hotels found");
+      return res.status(404).send("No hotels found");
     }
     res.status(200).send(hotels);
   } catch (err) {
@@ -66,10 +66,10 @@ const getHotels = async (req, res, next) => {
     const { min, max, ...others } = req.query;
     const hotels = await Hotel.find({
       ...others,
-      cheapestPrice: { $gt: min | 1, $lt: max || 200 },
+      cheapestPrice: { $gt: min || 1, $lt: max || 200 },
     }).limit(req.query.limit);
     if (!hotels) {
-      res.status(404).send("No hotels found");
+      return res.status(404).send("No hotels found");
     }
     res.status(200).send(hotels);
   } catch (err) {
@@ -101,7 +101,7 @@ const countByType = async (req, res, next) => {
     res.status(200).json([
       { type: "hotels", count: hotelCount },
       { type: "apartments", count: apartmentCount },
-      { type: "resorst", count: resortcount },
+      { type: "resorts", count: resortcount },
       { type: "villas", count: villaCount },
       { type: "cabins", count: cabinCount },
     ]);
@@ -113,6 +113,9 @@ const countByType = async (req, res, next) => {
 const getHotelRooms = async (req, res, next) => {
   try {
     const hotel = await Hotel.findById(req.params.id);
+    if (!hotel) {
+      return res.status(404).send("Hotel not found");
+    }
     const list = await Promise.all(
       hotel.rooms.map((room) => {
         return Room.findById(room);

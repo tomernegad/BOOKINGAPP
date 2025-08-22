@@ -9,7 +9,7 @@ const updatedUser = async (req, res, next) => {
       { new: true }
     );
     if (!updatedUser) {
-      res.status(404).send("The user to update was not found");
+      return res.status(404).send("The user to update was not found");
     }
     res.status(200).send(updatedUser);
   } catch (err) {
@@ -23,7 +23,7 @@ const deletedUser = async (req, res, next) => {
     const { id } = req.params;
     const deletedUser = await User.findByIdAndDelete(id);
     if (!deletedUser) {
-      res.status(404).send("Did not found user do delete");
+      return res.status(404).send("Did not find user to delete");
     }
     res.status(200).send(deletedUser);
   } catch (err) {
@@ -37,7 +37,7 @@ const getUser = async (req, res, next) => {
     const { id } = req.params;
     const users = await User.findById(id);
     if (!users) {
-      res.status(404).send("No users found");
+      return res.status(404).send("No users found");
     }
     res.status(200).send(users);
   } catch (err) {

@@ -24,7 +24,7 @@ const Hotel = () => {
   const [open, setOpen] = useState(false);
   const [openModal, setOpenModal] = useState(false);
 
-  const { data, loading, error, reFetch } = useFetch(`/hotels/find/${id}`);
+  const { data, loading } = useFetch(`/hotels/find/${id}`);
 
   const MILLISECONDS_PER_DAY = 1000 * 60 * 60 * 24;
   function dayDiffrence(date1, date2) {
