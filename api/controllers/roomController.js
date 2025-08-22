@@ -29,7 +29,7 @@ const updateRoom = async (req, res, next) => {
       { new: true }
     );
     if (!updateRoom) {
-      res.status(404).send("The Room to update was not found");
+      return res.status(404).send("The Room to update was not found");
     }
     res.status(200).send(updateRoom);
   } catch (err) {
@@ -65,7 +65,7 @@ const deletedRoom = async (req, res, next) => {
       next(err);
     }
     if (!deletedRoom) {
-      res.status(404).send("Did not found Room do delete");
+      return res.status(404).send("Did not find Room to delete");
     }
     res.status(200).send("Room has been deleted");
   } catch (err) {
@@ -79,7 +79,7 @@ const getRoom = async (req, res, next) => {
     const { id } = req.params;
     const rooms = await Room.findById(id);
     if (!rooms) {
-      res.status(404).send("No rooms found");
+      return res.status(404).send("No rooms found");
     }
     res.status(200).send(rooms);
   } catch (err) {
